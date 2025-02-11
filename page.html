@@ -11,6 +11,7 @@
             background-color: #ffccdc;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         .container {
             margin-top: 50px;
@@ -29,6 +30,7 @@
             margin-top: 20px;
             opacity: 0;
             transition: opacity 2s;
+            cursor: pointer;
         }
         .reveal {
             opacity: 1;
@@ -43,18 +45,74 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .floating-heart, .floating-image {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: floatUp 5s linear infinite;
+        }
+        .floating-image img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="heart">❤️</div>
         <h1>Happy Valentine’s Day!</h1>
-        <button class="button" onclick="showMessage()">Click để nhận thông điệp 💌</button>
+        <button class="button" onclick="showMessageAndStartHeartRain()">Click để nhận thông điệp 💌</button>
         <p class="message" id="valentineMessage">Em là người đặc biệt nhất trong trái tim anh 💖</p>
     </div>
     <script>
-        function showMessage() {
+        function showMessageAndStartHeartRain() {
             document.getElementById('valentineMessage').classList.add('reveal');
+            startHeartRain();
+            startImageRain();
+        }
+        function startHeartRain() {
+            let duration = 5 * 60 * 1000; // 5 phút
+            let endTime = Date.now() + duration;
+            function createHeart() {
+                if (Date.now() > endTime) return;
+                let heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+                setTimeout(createHeart, 200);
+            }
+            createHeart();
+        }
+        function startImageRain() {
+            let images = [
+                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh1.jpg',
+                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh2.jpg'
+            ];
+            let duration = 5 * 60 * 1000;
+            let endTime = Date.now() + duration;
+            function createImage() {
+                if (Date.now() > endTime) return;
+                let imgContainer = document.createElement('div');
+                imgContainer.classList.add('floating-image');
+                let img = document.createElement('img');
+                img.src = images[Math.floor(Math.random() * images.length)];
+                imgContainer.appendChild(img);
+                imgContainer.style.left = Math.random() * 100 + 'vw';
+                imgContainer.style.top = '100vh';
+                document.body.appendChild(imgContainer);
+                setTimeout(() => imgContainer.remove(), 5000);
+                setTimeout(createImage, 500);
+            }
+            createImage();
         }
     </script>
 </body>
