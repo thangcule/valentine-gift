@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine’s Day ❤️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffccdc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .heart {
+            font-size: 50px;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .message {
+            font-size: 24px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+        .reveal {
+            opacity: 1;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>Happy Valentine’s Day!</h1>
+        <button class="button" onclick="showMessage()">Click để nhận thông điệp 💌</button>
+        <p class="message" id="valentineMessage">Em là người đặc biệt nhất trong trái tim anh 💖</p>
+    </div>
+    <script>
+        function showMessage() {
+            document.getElementById('valentineMessage').classList.add('reveal');
+        }
+    </script>
+</body>
+</html>
