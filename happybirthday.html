@@ -67,6 +67,15 @@
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
         }
+        .frame {
+            width: 300px;
+            height: 300px;
+            background: url('https://raw.githubusercontent.com/thangcule/valentine-gift/main/heart-frame.png') no-repeat center;
+            background-size: cover;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +87,7 @@
         <div class="cake">🎂</div>
         <h1>Chúc Mừng Sinh Nhật Mẹ Yêu!</h1>
         <button class="button" id="startButton" onclick="startCelebration()">Nhấn để nhận lời chúc 🎉</button>
-        <p class="message" id="birthdayMessage">Mẹ là người tuyệt vời nhất trên thế giới này! Con chúc mẹ thật nhiều sức khỏe, niềm vui và hạnh phúc.Cả nhà yêu mẹ rất nhiều! 💖</p>
+        <p class="message" id="birthdayMessage">Mẹ là người tuyệt vời nhất trên thế giới này! Con chúc mẹ thật nhiều sức khỏe, niềm vui và hạnh phúc. Yêu mẹ rất nhiều! 💖</p>
     </div>
     <script>
         function startCelebration() {
