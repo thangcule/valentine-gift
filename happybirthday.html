@@ -52,15 +52,29 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        .floating-heart {
+        .floating-heart, .floating-image {
             position: absolute;
             font-size: 24px;
             color: red;
             animation: floatUp 5s linear infinite;
         }
+        .floating-image img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        .frame {
+            width: 300px;
+            height: 300px;
+            background: url('https://raw.githubusercontent.com/thangcule/valentine-gift/main/heart-frame.png') no-repeat center;
+            background-size: cover;
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
     </style>
 </head>
@@ -75,12 +89,14 @@
         <button class="button" id="startButton" onclick="startCelebration()">Nhấn để nhận lời chúc 🎉</button>
         <p class="message" id="birthdayMessage">Mẹ là người tuyệt vời nhất trên thế giới này! Con chúc mẹ thật nhiều sức khỏe, niềm vui và hạnh phúc. Yêu mẹ rất nhiều! 💖</p>
     </div>
+    <div class="frame"></div>
     <script>
         function startCelebration() {
             document.getElementById('birthdayMessage').classList.add('reveal');
             document.getElementById('bg-music').play();
             document.getElementById('startButton').style.display = 'none';
             startHeartRain();
+            startImageRain();
         }
         function startHeartRain() {
             let duration = 5 * 60 * 1000; // 5 phút
@@ -98,6 +114,27 @@
                 setTimeout(createHeart, 200);
             }
             createHeart();
+        }
+        function startImageRain() {
+            let images = [
+                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/me1.jpg'
+            ];
+            let duration = 5 * 60 * 1000;
+            let endTime = Date.now() + duration;
+            function createImage() {
+                if (Date.now() > endTime) return;
+                let imgContainer = document.createElement('div');
+                imgContainer.classList.add('floating-image');
+                let img = document.createElement('img');
+                img.src = images[Math.floor(Math.random() * images.length)];
+                imgContainer.appendChild(img);
+                imgContainer.style.left = Math.random() * 100 + 'vw';
+                imgContainer.style.top = '100vh';
+                document.body.appendChild(imgContainer);
+                setTimeout(() => imgContainer.remove(), 5000);
+                setTimeout(createImage, 500);
+            }
+            createImage();
         }
     </script>
 </body>
