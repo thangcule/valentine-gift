@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine’s Day ❤️</title>
+    <title>Chúc Mừng Sinh Nhật Mẹ Yêu ❤️</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #ffccdc;
+            background-color: #ffe6e6;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         .container {
             margin-top: 50px;
+            position: relative;
         }
         .heart {
             font-size: 50px;
             animation: heartbeat 1s infinite;
+            display: inline-block;
+        }
+        .cake {
+            font-size: 50px;
+            margin-left: 20px;
+            display: inline-block;
         }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -29,6 +37,7 @@
             margin-top: 20px;
             opacity: 0;
             transition: opacity 2s;
+            cursor: pointer;
         }
         .reveal {
             opacity: 1;
@@ -43,18 +52,52 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .floating-heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
     </style>
 </head>
 <body>
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/thangcule/valentine-gift/main/happy-birthday.mp3" type="audio/mp3">
+    </audio>
     <div class="container">
         <div class="heart">❤️</div>
-        <h1>Happy Valentine’s Day!</h1>
-        <button class="button" onclick="showMessage()">Click để nhận thông điệp 💌</button>
-        <p class="message" id="valentineMessage">Em là người đặc biệt nhất trong trái tim anh 💖</p>
+        <div class="cake">🎂</div>
+        <h1>Chúc Mừng Sinh Nhật Mẹ Yêu!</h1>
+        <button class="button" id="startButton" onclick="startCelebration()">Nhấn để nhận lời chúc 🎉</button>
+        <p class="message" id="birthdayMessage">Mẹ là người tuyệt vời nhất trên thế giới này! Con chúc mẹ thật nhiều sức khỏe, niềm vui và hạnh phúc. Yêu mẹ rất nhiều! 💖</p>
     </div>
     <script>
-        function showMessage() {
-            document.getElementById('valentineMessage').classList.add('reveal');
+        function startCelebration() {
+            document.getElementById('birthdayMessage').classList.add('reveal');
+            document.getElementById('bg-music').play();
+            document.getElementById('startButton').style.display = 'none';
+            startHeartRain();
+        }
+        function startHeartRain() {
+            let duration = 5 * 60 * 1000; // 5 phút
+            let endTime = Date.now() + duration;
+            function createHeart() {
+                if (Date.now() > endTime) return;
+                let heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+                setTimeout(createHeart, 200);
+            }
+            createHeart();
         }
     </script>
 </body>
