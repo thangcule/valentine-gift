@@ -99,7 +99,7 @@
         <div class="cake">🎂</div>
         <h1>Happy valentine day!</h1>
         <button class="button" id="startButton" onclick="startCelebration()">Nhấn để nhận lời chúc 🎉</button>
-        <p class="message" id="birthdayMessage">Em là người tuyệt vời nhất trên thế giới này! Yeu em rất nhiều! 💖</p>
+        <p class="message" id="birthdayMessage">Unbox túi mù cùng Thanh Xuân nào 💖</p>
     </div>
     <script>
         function startCelebration() {
@@ -107,7 +107,7 @@
             let messageText = "Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖";
             messageElement.innerHTML = ""; // Xóa nội dung cũ
             messageElement.classList.add('reveal');
-            typeText(messageElement, messageText, 50); // Gọi hiệu ứng gõ chữ
+            typeText(messageElement, messageText, 30); // Gọi hiệu ứng gõ chữ
             //document.getElementById('birthdayMessage').classList.add('reveal');
             let audio = document.getElementById('bg-music');
             if (audio.paused) {
