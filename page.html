@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Sinh Nhật Mẹ Yêu ❤️</title>
+    <title>To My Love ❤️</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -35,9 +35,20 @@
         .message {
             font-size: 24px;
             margin-top: 20px;
-            opacity: 0;
+            /*opacity: 0;
             transition: opacity 2s;
-            cursor: pointer;
+            cursor: pointer;  */
+            opacity: 1; /* Hiển thị ngay */
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid black; /* Hiệu ứng con trỏ nhấp nháy */
+            animation: blinkCursor 0.8s infinite;
+        }
+        /* Hiệu ứng con trỏ gõ chữ */
+        @keyframes blinkCursor {
+           0% { border-right-color: black; }
+           50% { border-right-color: transparent; }
+           100% { border-right-color: black; }
         }
         .reveal {
             opacity: 1;
@@ -92,7 +103,12 @@
     </div>
     <script>
         function startCelebration() {
-            document.getElementById('birthdayMessage').classList.add('reveal');
+            let messageElement = document.getElementById('birthdayMessage');
+            let messageText = "Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖";
+            messageElement.innerHTML = ""; // Xóa nội dung cũ
+            messageElement.classList.add('reveal');
+            typeText(messageElement, messageText, 50); // Gọi hiệu ứng gõ chữ
+            //document.getElementById('birthdayMessage').classList.add('reveal');
             let audio = document.getElementById('bg-music');
             if (audio.paused) {
                 audio.play().catch(error => console.log("Không thể phát nhạc:", error));
@@ -101,6 +117,19 @@
             startHeartRain();
             startImageRain();
         }
+        // Hiệu ứng gõ chữ từng ký tự
+        function typeText(element, text, speed) {
+            let index = 0;
+            function type() {
+               if (index < text.length) {
+                   element.innerHTML += text.charAt(index);
+                   index++;
+                   setTimeout(type, speed);
+               }
+            }
+           type();
+        }
+        
         function startHeartRain() {
             let duration = 5 * 60 * 1000;
             let endTime = Date.now() + duration;
