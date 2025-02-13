@@ -35,27 +35,24 @@
         .message {
             font-size: 24px;
             margin-top: 20px;
-            /*opacity: 0;
+            opacity: 0;
             transition: opacity 2s;
-            cursor: pointer;  */
-            width: 80%; /* Giới hạn chiều rộng để chữ không quá dài */
-            max-width: 400px; /* Tối đa 400px để hiển thị đẹp trên điện thoại */
-            word-wrap: break-word; /* Tự động xuống dòng khi cần */
-            white-space: normal; /* Đảm bảo chữ không bị dính liền trên 1 dòng */
+            cursor: pointer;
+            width: 80%; /* Giới hạn chiều rộng */
+            max-width: 400px; /* Đảm bảo hiển thị tốt trên điện thoại */
+            word-wrap: break-word; /* Tự động xuống dòng khi quá dài */
+            white-space: normal; /* Cho phép chữ xuống dòng */
             margin-left: auto;
             margin-right: auto;
-            opacity: 1; /* Hiển thị ngay */
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 2px solid black; /* Hiệu ứng con trỏ nhấp nháy */
-            animation: blinkCursor 0.8s infinite;
+            text-align: center;
         }
-        /* Hiệu ứng con trỏ gõ chữ */
-        @keyframes blinkCursor {
-           0% { border-right-color: black; }
-           50% { border-right-color: transparent; }
-           100% { border-right-color: black; }
+
+        @keyframes blink {
+           0% { opacity: 1; }
+           50% { opacity: 0; }
+           100% { opacity: 1; }
         }
+
         .reveal {
             opacity: 1;
         }
@@ -105,16 +102,18 @@
         <div class="cake">🎂</div>
         <h1>Happy valentine day!</h1>
         <button class="button" id="startButton" onclick="startCelebration()">Nhấn để nhận lời chúc 🎉</button>
-        <p class="message" id="birthdayMessage">Unbox túi mù cùng Thanh Xuân nào 💖</p>
+        <p class="message" id="birthdayMessage">Unbox túi mù cùng Thanh Xuân nàoUp1 💖</p>
     </div>
     <script>
         function startCelebration() {
             let messageElement = document.getElementById('birthdayMessage');
-            let messageText = "Là anh yêu của bé đây, từ từ đợi nhạc lên ùi anh tâm sự nhỏ với bé nhé hihi 3, 2, 1, ...Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖";
-            messageElement.innerHTML = ""; // Xóa nội dung cũ
+            let messageText = "Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖Em là người tuyệt vời nhất trên thế giới này! Yêu em rất nhiều! 💖";
+            
             messageElement.classList.add('reveal');
-            typeText(messageElement, messageText, 200); // Gọi hiệu ứng gõ chữ
-            //document.getElementById('birthdayMessage').classList.add('reveal');
+            
+            // Hiệu ứng gõ chữ với tốc độ 100ms mỗi ký tự + con trỏ nhấp nháy
+            typeWriterEffect(messageElement, messageText, 100);
+        
             let audio = document.getElementById('bg-music');
             if (audio.paused) {
                 audio.play().catch(error => console.log("Không thể phát nhạc:", error));
@@ -123,18 +122,28 @@
             startHeartRain();
             startImageRain();
         }
-        // Hiệu ứng gõ chữ từng ký tự
-        function typeText(element, text, speed) {
-            let index = 0;
+        
+        function typeWriterEffect(element, text, speed) {
+            let i = 0;
+            let cursor = document.createElement("span");
+            cursor.textContent = "|";
+            cursor.style.animation = "blink 0.7s infinite";
+            element.innerHTML = "";
+            element.appendChild(cursor);
+        
             function type() {
-               if (index < text.length) {
-                   element.innerHTML += text.charAt(index);
-                   index++;
-                   setTimeout(type, speed);
-               }
+                if (i < text.length) {
+                    element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    cursor.remove(); // Xóa con trỏ khi gõ xong
+                }
             }
-           type();
+            
+            type();
         }
+
         
         function startHeartRain() {
             let duration = 5 * 60 * 1000;
