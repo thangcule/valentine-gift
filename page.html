@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine’s Day ❤️</title>
+    <title>Chúc Mừng Sinh Nhật Mẹ Yêu ❤️</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #ffccdc;
+            background-color: #ffe6e6;
             margin: 0;
             padding: 0;
             overflow: hidden;
         }
         .container {
             margin-top: 50px;
+            position: relative;
         }
         .heart {
             font-size: 50px;
             animation: heartbeat 1s infinite;
+            display: inline-block;
+        }
+        .cake {
+            font-size: 50px;
+            margin-left: 20px;
+            display: inline-block;
         }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -47,39 +54,55 @@
         }
         .floating-heart, .floating-image {
             position: absolute;
-            font-size: 24px;
+            font-size: 30px;
             color: red;
             animation: floatUp 5s linear infinite;
         }
         .floating-image img {
-            width: 50px;
-            height: 50px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
+            object-fit: cover;
         }
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
         }
+        .frame {
+            width: 300px;
+            height: 300px;
+            background: url('https://raw.githubusercontent.com/thangcule/valentine-gift/main/heart-frame.png') no-repeat center;
+            background-size: cover;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
-    <audio autoplay loop>
+    <audio id="bg-music" loop>
         <source src="https://raw.githubusercontent.com/thangcule/valentine-gift/main/nhac.mp3" type="audio/mp3">
     </audio>
     <div class="container">
         <div class="heart">❤️</div>
-        <h1>Happy Valentine’s Day!</h1>
-        <button class="button" onclick="showMessageAndStartHeartRain()">Click để nhận thông điệp 💌</button>
-        <p class="message" id="valentineMessage">Em là người đặc biệt nhất trong trái tim anh 💖</p>
+        <div class="cake">🎂</div>
+        <h1>Happy valentine day!</h1>
+        <button class="button" id="startButton" onclick="startCelebration()">Nhấn để nhận lời chúc 🎉</button>
+        <p class="message" id="birthdayMessage">Em là người tuyệt vời nhất trên thế giới này! Yeu em rất nhiều! 💖</p>
     </div>
     <script>
-        function showMessageAndStartHeartRain() {
-            document.getElementById('valentineMessage').classList.add('reveal');
+        function startCelebration() {
+            document.getElementById('birthdayMessage').classList.add('reveal');
+            let audio = document.getElementById('bg-music');
+            if (audio.paused) {
+                audio.play().catch(error => console.log("Không thể phát nhạc:", error));
+            }
+            document.getElementById('startButton').style.display = 'none';
             startHeartRain();
             startImageRain();
         }
         function startHeartRain() {
-            let duration = 5 * 60 * 1000; // 5 phút
+            let duration = 5 * 60 * 1000;
             let endTime = Date.now() + duration;
             function createHeart() {
                 if (Date.now() > endTime) return;
@@ -99,9 +122,9 @@
             let images = [
                 'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh1.jpg',
                 'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh2.jpg',
-                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh3.jpg',
                 'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh4.jpg',
-                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh5.jpg'
+                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh5.jpg',
+                'https://raw.githubusercontent.com/thangcule/valentine-gift/main/anh6.jpg'
             ];
             let duration = 5 * 60 * 1000;
             let endTime = Date.now() + duration;
