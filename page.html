@@ -135,6 +135,8 @@
                 if (i < text.length) {
                     element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
                     i++;
+                    // Tự động cuộn khi chữ dài hơn màn hình
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                     setTimeout(type, speed);
                 } else {
                     cursor.remove(); // Xóa con trỏ khi gõ xong
